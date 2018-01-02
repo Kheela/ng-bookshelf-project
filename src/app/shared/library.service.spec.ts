@@ -1,8 +1,8 @@
 /* tslint:disable:no-unused-variable */
 
-import {TestBed, async, inject} from '@angular/core/testing';
-import {LibraryService} from './library.service';
-import {Book} from "./book";
+import { TestBed, async, inject } from '@angular/core/testing';
+import { LibraryService } from './library.service';
+import { Book } from "./book";
 
 function createBookFixture(book_id) {
   return new Book(
@@ -29,7 +29,6 @@ fdescribe('LibraryService', () => {
     libraryService = TestBed.get(LibraryService);
   });
 
-
   it('can add a book to the library', () => {
     let book = createBookFixture('bookId');
     libraryService.addBook(book);
@@ -47,20 +46,35 @@ fdescribe('LibraryService', () => {
     expect(libraryService.books[0].categories[0]).toBe("categories");
     expect(libraryService.books[0].thumbnail).toBe("thumbnail");
     expect(libraryService.books[0].smallThumbnail).toBe("smallThumbnail");
-});
 
-  it('can remove a book to the library', () => {
+    libraryService.removeBook(book);
+  });
+
+  it('can remove a book from the library', () => {
     let book = createBookFixture('bookId');
+    libraryService.addBook(book);
     libraryService.removeBook(book);
 
     expect(libraryService.books.length).toBe(0);
   });
 
   it('checks if a book is already in the library', () => {
-    //TODO
+    let book = createBookFixture('bookId');
+    let book2 = createBookFixture('bookId2');
+    libraryService.addBook(book);
+
+    expect(libraryService.hasBook(book)).toBeTruthy();
+    expect(libraryService.hasBook(book2)).toBeFalsy();
   });
 
   it('can save and load the books', () => {
-    //TODO
+    let book = createBookFixture('bookId');
+    libraryService.addBook(book);
+    libraryService.save();
+    libraryService.books = [];
+    libraryService.load();
+
+    expect(libraryService.books.length).toBe(1);
+    expect(libraryService.hasBook(book)).toBeTruthy();    
   });
 });
