@@ -50,7 +50,7 @@ export class GoogleBooksService {
     this.loading = true;
     this.initialised = true;
     this.books = [];
-    this.http.get(`${this.API_PATH}?q=${this.query}&maxResults=${this.pageSize}&startIndex=${this.startIndex}`)
+    let observable = this.http.get(`${this.API_PATH}?q=${this.query}&maxResults=${this.pageSize}&startIndex=${this.startIndex}`)
       .map(res => res.json())
       .do(data => {
         this.totalItems = data.totalItems;
@@ -61,7 +61,7 @@ export class GoogleBooksService {
       .map(items => {
         return items.map(item => this.bookFactory(item))
       })
-      // .do(books => console.log(books))
+      .do(books => console.log(books))
       .do(_ => this.loading = false)
       .subscribe((books) => this.books = books);
   }

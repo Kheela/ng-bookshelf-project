@@ -10,9 +10,7 @@ import { GoogleBooksService } from '../shared/google-books.service';
 })
 export class SearchComponent implements OnInit {
 
-  private noSearches: boolean = true;
-  private isLoading: boolean = false;
-  private books: Book[];
+  private term: string = "";
 
   constructor(
     private route: ActivatedRoute,
@@ -21,25 +19,18 @@ export class SearchComponent implements OnInit {
   ) {
     this.route.params.subscribe(params => {
       if (params['term']) {
-        this.doSearch(params['term']);
+        this.term = params['term'];
+        this.onSearch(this.term);
       }
     });
   }
 
-  doSearch(term: string) {
-    console.log('doSearch: ' + term);
-
-    this.isLoading = true;
-    this.googleBooksService.searchBooks(term);
-    this.books = this.googleBooksService.books;
-    this.isLoading = false;
-    this.noSearches = false;
+  doSearch() {
+    this.router.navigate(['search', { term: this.term }]);
   }
 
   onSearch(term: string) {
-    console.log('onSearch: ' + term);
-
-    this.router.navigate(['search', { term: term }]);
+    this.googleBooksService.searchBooks(term);
   }
 
   ngOnInit() {
