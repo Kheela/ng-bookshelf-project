@@ -34,7 +34,7 @@ import { LibraryService } from "./shared/library.service";
     FormsModule,
     RouterModule.forRoot(
       routes,
-      { enableTracing: true, useHash: true } // enableTracing for debugging purposes only
+      { enableTracing: true } // enableTracing for debugging purposes only
     )
   ],
   providers: [GoogleBooksService, LibraryService],

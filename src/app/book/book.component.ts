@@ -1,5 +1,6 @@
-import {Component} from "@angular/core";
-import {Book} from "../shared/book";
+import {Component} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Book} from '../shared/book';
 
 @Component({
   selector: 'app-book',
@@ -9,7 +10,8 @@ import {Book} from "../shared/book";
 export class BookComponent {
 
 
-  constructor() {
+  constructor(private route: ActivatedRoute) {
+    this.route.params.subscribe(params => console.log(params));
   }
 
   getBook(bookId: string) {
