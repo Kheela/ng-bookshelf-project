@@ -17,7 +17,6 @@ export class GoogleBooksService {
   public query: string = "";
   public books: Book[];
 
-
   constructor(private http: Http) {
   }
 
@@ -83,8 +82,8 @@ export class GoogleBooksService {
       item.volumeInfo.publishedDate,
       item.volumeInfo.description,
       item.volumeInfo.categories ? item.volumeInfo.categories.map((item) => item.split("/").pop().trim()) : ['N/A'],
-      item.volumeInfo.imageLinks.thumbnail,
-      item.volumeInfo.imageLinks.smallThumbnail
+      item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail : ['N/A'],
+      item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.smallThumbnail : ['N/A']
     )
   }
 }
